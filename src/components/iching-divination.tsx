@@ -1,3 +1,5 @@
+// iching-divination.tsx を開いて次のように修正してください
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -5,9 +7,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Papa from 'papaparse';
 
+// CSVデータの型を定義
+interface FortuneData {
+  hexagram_id: number;
+  hexagram_name: string;
+  line_number: number;
+  fortune_value: number;
+  fortune_text: string;
+  interpretation: string;
+}
+
 export function IChingDivination() {
-  const [fortuneData, setFortuneData] = useState([]);
-  const [currentResult, setCurrentResult] = useState(null);
+  // 型を明示的に指定
+  const [fortuneData, setFortuneData] = useState<FortuneData[]>([]);
+  const [currentResult, setCurrentResult] = useState<FortuneData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +34,9 @@ export function IChingDivination() {
           dynamicTyping: true,
           skipEmptyLines: true,
           complete: (results) => {
-            setFortuneData(results.data.filter(row => row.hexagram_id));
+            // 型アサーションを使用
+            const data = results.data as FortuneData[];
+            setFortuneData(data.filter(row => row.hexagram_id));
             setLoading(false);
           }
         });
