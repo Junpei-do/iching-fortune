@@ -61,15 +61,16 @@ export function IChingDivination() {
     setCurrentResult(randomLine);
   };
 
-  const getFortuneBgColor = (fortune_value) => {
-    switch (fortune_value) {
-      case 2: return 'bg-red-50 border-red-200';  // 大吉
-      case 1: return 'bg-orange-50 border-orange-200';  // 吉
-      case 0: return 'bg-slate-50 border-slate-200';  // 平
-      case -1: return 'bg-blue-50 border-blue-200';  // 凶
-      default: return 'bg-white';
-    }
-  };
+// getFortuneBgColor関数に型を追加
+const getFortuneBgColor = (fortune_value: number) => {
+  switch (fortune_value) {
+    case 2: return 'bg-red-50 border-red-200';  // 大吉
+    case 1: return 'bg-orange-50 border-orange-200';  // 吉
+    case 0: return 'bg-slate-50 border-slate-200';  // 平
+    case -1: return 'bg-blue-50 border-blue-200';  // 凶
+    default: return 'bg-white';
+  }
+};
 
   if (loading) {
     return (
